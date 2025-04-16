@@ -24,23 +24,8 @@ namespace eclipse::hacks::Bypass {
             if (!RewardUnlockLayer::init(chestType, rewardsPage))
                 return false;
 
-            auto winSize = utils::get<cocos2d::CCDirector>()->getWinSize();
-
-            m_chestSprite->stopAllActions();
-            m_chestSprite->runAction(
-                cocos2d::CCEaseBounceOut::create(
-                    cocos2d::CCMoveTo::create(
-                        1.0, { winSize.width / 2, (winSize.height / 2) - 20 }
-                    )
-                )
-            );
-            m_chestSprite->runAction(
-                cocos2d::CCSequence::create(
-                    cocos2d::CCDelayTime::create(0.4),
-                    cocos2d::CCCallFunc::create(this, callfunc_selector(RewardUnlockLayer::step3)),
-                    nullptr
-                )
-            );
+            // Skip animations entirely, go straight to step3
+            this->step3();
 
             return true;
         }
